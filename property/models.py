@@ -58,7 +58,9 @@ class Flat(models.Model):
     liked_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name='liked_flats',
-        verbose_name='Кто лайкнул'
+        verbose_name='Кто лайкнул',
+        null=True,
+        blank=True
     )
 
     def __str__(self):
