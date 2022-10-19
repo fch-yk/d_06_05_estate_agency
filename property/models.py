@@ -98,3 +98,6 @@ class Owner(models.Model):
         verbose_name='Квартиры в собственности',
         blank=True
     )
+
+    def __str__(self):
+        return f'{self.name} ({self.id})'
