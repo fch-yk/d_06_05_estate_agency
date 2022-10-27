@@ -1,26 +1,69 @@
-# Сайт риэлторского агентства
+# Estate agency site
 
-Сайт находится в разработке, поэтому доступна только страница со списком квартир и админка для наполнения БД.
+The Django-based site renders ads of apartments for sale.
 
-## Запуск
+## Prerequisites
 
-- Скачайте код
-- Установите зависимости командой `pip install -r requirements.txt`
-- Создайте файл базы данных и сразу примените все миграции командой `python3 manage.py migrate`
-- Запустите сервер командой `python3 manage.py runserver`
+Python 3.10 is required.
 
-## Переменные окружения
+## Installing
 
-Часть настроек проекта берётся из переменных окружения. Чтобы их определить, создайте файл `.env` рядом с `manage.py` и запишите туда данные в таком формате: `ПЕРЕМЕННАЯ=значение`.
+- Download the project files;
+- It is recommended to use [venv](https://docs.python.org/3/library/venv.html?highlight=venv#module-venv) for project isolation;
+- Set up packages:
 
-Доступны 3 переменные:
-- `DEBUG` — дебаг-режим. Поставьте True, чтобы увидеть отладочную информацию в случае ошибки.
-- `SECRET_KEY` — секретный ключ проекта
-- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts).
-- `DATABASE` — однострочный адрес к базе данных, например: `sqlite:///db.sqlite3`. Больше информации в [документации](https://github.com/jacobian/dj-database-url)
+```bash
+pip install -r requirements.txt
+```
 
-    Это позволяет легко переключаться между базами данных: PostgreSQL, MySQL, SQLite — без разницы, нужно лишь подставить нужный адрес.
+- Set up environmental variables in your operating system or in .env file. The variables are:
 
-## Цели проекта
+  - `DEBUG` (optional, `True` by default)
+  - `SECRET_KEY` (optional, `REPLACE_ME` by default)
+  - `ALLOWED_HOSTS` (obligatory when `DEBUG` is set to `False`)
+  - `DATABASE` - database address (optional, `sqlite:///db.sqlite3` by default), see [also](https://github.com/jacobian/dj-database-url)
 
-Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).
+To set up variables in .env file, create it in the root directory of the project and fill it up like this:
+
+```bash
+DEBUG=True
+SECRET_KEY=REPLACE_ME
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE=sqlite:///db.sqlite3
+```
+
+## Initializing a database
+
+- Make migrations:
+
+```bash
+python manage.py makemigrations property
+```
+
+- Migrate:
+
+```bash
+python manage.py migrate
+```
+
+- Create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+## Using
+
+- Run a development server:
+
+```bash
+python manage.py runserver
+```
+
+- Go to [the admin site](http://127.0.0.1:8000/admin/) and fill the base
+- Go to [the site main page](http://127.0.0.1:8000/)
+
+## Project goals
+
+The project was created for educational purposes.
+It's a lesson for python and web developers at [Devman](https://dvmn.org)
