@@ -7,18 +7,20 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('property', '0011_auto_20221017_2148'),
+        ('property', '0011_shift_owners'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='owner',
             name='name',
-            field=models.CharField(db_index=True, max_length=200, verbose_name='ФИО владельца'),
+            field=models.CharField(
+                db_index=True, max_length=200, verbose_name='ФИО владельца'),
         ),
         migrations.AlterField(
             model_name='owner',
             name='pure_phone',
-            field=phonenumber_field.modelfields.PhoneNumberField(blank=True, db_index=True, max_length=128, region='RU', verbose_name='Нормализованный номер владельца'),
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                blank=True, db_index=True, max_length=128, region='RU', verbose_name='Нормализованный номер владельца'),
         ),
     ]
