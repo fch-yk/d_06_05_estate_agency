@@ -6,17 +6,16 @@ from django.db import migrations
 
 
 def revert_fill_new_building(apps, schema_editor):
-    flat_model = apps.get_model('property', 'Flat')
-    flat_model.objects.all().update(new_building=None)
+    Flat = apps.get_model('property', 'Flat')  # noqa: N806
+    Flat.objects.all().update(new_building=None)
 
 
 def fill_new_building(apps, schema_editors):
-    flat_model = apps.get_model('property', 'Flat')
-    flats = flat_model.objects.all()
-    new_building_limit = 2015
-    for flat in flats:
-        flat.new_building = flat.construction_year >= new_building_limit
-        flat.save(update_fields=['new_building'])
+    Flat = apps.get_model('property', 'Flat')  # noqa: N806
+    new_limit = 2015
+    Flat.objects.filter(
+        construction_year__gte=new_limit
+    ).update(new_building=True)
 
 
 class Migration(migrations.Migration):
