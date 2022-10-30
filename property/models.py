@@ -74,7 +74,7 @@ class Complaint(models.Model):
         related_name='complaints',
     )
 
-    text = models.TextField(default='', verbose_name='Текст жалобы')
+    text = models.TextField(verbose_name='Текст жалобы')
 
     def __str__(self):
         return f'id - {self.id} user - {self.user}'
