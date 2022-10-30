@@ -64,12 +64,14 @@ class Complaint(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         models.CASCADE,
-        verbose_name='Кто жаловался'
+        verbose_name='Кто жаловался',
+        related_name='complaints',
     )
     flat = models.ForeignKey(
         Flat,
         models.CASCADE,
-        verbose_name='Квартира, на которую жаловались'
+        verbose_name='Квартира, на которую жаловались',
+        related_name='complaints',
     )
 
     text = models.TextField(default='', verbose_name='Текст жалобы')
