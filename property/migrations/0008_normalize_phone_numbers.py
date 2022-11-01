@@ -9,16 +9,17 @@ import phonenumbers
 def normalize_phone_numbers(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')  # noqa: N806
     flats = Flat.objects.all()
-    if flats.exists():
-        for flat in flats.iterator():
-            number_card = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-            if not phonenumbers.is_valid_number(number_card):
-                continue
+    if not flats.exists():
+        return
+    for flat in flats.iterator():
+        number_card = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+        if not phonenumbers.is_valid_number(number_card):
+            continue
 
-            prefix = f'+{number_card.country_code}'
-            flat.owner_pure_phone = f'{prefix}{number_card.national_number}'
+        prefix = f'+{number_card.country_code}'
+        flat.owner_pure_phone = f'{prefix}{number_card.national_number}'
 
-            flat.save(update_fields=['owner_pure_phone'])
+        flat.save(update_fields=['owner_pure_phone'])
 
 
 def revert_normalize_phone_numbers(apps, schema_editor):

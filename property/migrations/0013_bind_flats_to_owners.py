@@ -9,17 +9,18 @@ def bind_flats_to_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')  # noqa: N806
     owner_model = apps.get_model('property', 'Owner')
     flats = Flat.objects.all()
-    if flats.exists():
-        for flat in flats.iterator():
-            owner, _ = owner_model.objects.get_or_create(
-                name=flat.owner,
-                pure_phone=flat.owner_pure_phone,
-                defaults={
-                    'name': flat.owner,
-                    'phonenumber': flat.owners_phonenumber,
-                    'pure_phone': flat.owner_pure_phone}
-            )
-            flat.owners.set([owner])
+    if not flats.exists():
+        return
+    for flat in flats.iterator():
+        owner, _ = owner_model.objects.get_or_create(
+            name=flat.owner,
+            pure_phone=flat.owner_pure_phone,
+            defaults={
+                'name': flat.owner,
+                'phonenumber': flat.owners_phonenumber,
+                'pure_phone': flat.owner_pure_phone}
+        )
+        flat.owners.set([owner])
 
 
 def unbind_flats_from_owners(apps, schema_editor):

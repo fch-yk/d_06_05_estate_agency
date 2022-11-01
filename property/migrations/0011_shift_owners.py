@@ -9,16 +9,17 @@ def shift_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')  # noqa: N806
     Owner = apps.get_model('property', 'Owner')  # noqa: N806
     flats = Flat.objects.all()
-    if flats.exists():
-        for flat in flats.iterator():
-            Owner.objects.update_or_create(
-                name=flat.owner,
-                pure_phone=flat.owner_pure_phone,
-                defaults={
-                    'name': flat.owner,
-                    'phonenumber': flat.owners_phonenumber,
-                    'pure_phone': flat.owner_pure_phone}
-            )
+    if not flats.exists():
+        return
+    for flat in flats.iterator():
+        Owner.objects.update_or_create(
+            name=flat.owner,
+            pure_phone=flat.owner_pure_phone,
+            defaults={
+                'name': flat.owner,
+                'phonenumber': flat.owners_phonenumber,
+                'pure_phone': flat.owner_pure_phone}
+        )
 
 
 def revert_shift_owners(apps, schema_editor):
